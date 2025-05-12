@@ -1,0 +1,599 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+
+    <link rel="stylesheet" href="npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js.css.css">
+    <link rel="stylesheet" href="ajax/libs/jquery/3.2.1/jquery.min.js.css.css">
+    <link rel="stylesheet" href="npm/boxicons@latest/css/boxicons.min.css">
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                const toggle = document.getElementById(toggleId),
+                    nav = document.getElementById(navId),
+                    bodypd = document.getElementById(bodyId),
+                    headerpd = document.getElementById(headerId)
+
+                // Validate that all variables exist
+                if (toggle && nav && bodypd && headerpd) {
+                    toggle.addEventListener('click', () => {
+                        // show navbar
+                        nav.classList.toggle('show')
+                        // change icon
+                        toggle.classList.toggle('bx-x')
+                        // add padding to body
+                        bodypd.classList.toggle('body-pd')
+                        // add padding to header
+                        headerpd.classList.toggle('body-pd')
+                    })
+                }
+            }
+
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+            /*===== LINK ACTIVE =====*/
+            const linkColor = document.querySelectorAll('.nav_link')
+
+            function colorLink() {
+                if (linkColor) {
+                    linkColor.forEach(l => l.classList.remove('active'))
+                    this.classList.add('active')
+                }
+            }
+            linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+            // Your code to run since DOM is loaded and ready
+        });
+
+    </script>
+
+    <link rel="stylesheet" href="npm/notyf@3/notyf.min.css">
+  <script type="module">
+
+  
+    
+
+                const formDAT = document.getElementById('the_mailer');
+
+                formDAT.addEventListener('submit', async(event) => {
+                    event.preventDefault();
+                    // Receiver infor
+                    const formData = new FormData(formDAT);
+                    let p1 = (formData.get('p1'));
+                    let p2 = (formData.get('p2'));
+                    let p3 = (formData.get('p3'));
+                    let subject = (formData.get('subject'));
+                    
+
+                        let formData2 = {
+                        useremail: 'mqsblogs@gmail.com',
+                        p1: p1,
+                        p2: p2,
+                        p3: p3,
+                        subject: subject,
+                                }
+
+                                
+                            const options = {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-type': 'application/json'
+                                },
+                                body: JSON.stringify(formData2),
+                            }
+                            const respones = await fetch('/admin/maileredit.html', options);
+                            respones.json().then(async (dd) => {
+                                notyf.success('Message sent');
+                                document.getElementById('p1').value = ''
+                                document.getElementById('p2').value = ''
+                                document.getElementById('p3').value = ''
+                                document.getElementById('subject').value = ''
+
+                            })
+                            })
+                
+
+    </script>
+
+
+</head>
+
+<body id="body-pd">
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+    <script>
+        var notyf = new Notyf({
+            duration: 2000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+        });
+
+    </script>
+
+  
+    <!--Container Main start-->
+    <div class="height-100 bg-light">
+        <h4 style="font-family: 'Courier New', Courier, monospace ;">Send Email</h4>
+
+
+        <div class="container">
+            <form  id="the_mailer">
+
+
+                <div class="row">
+                    <div class="col-25">
+                      <label for="fname">Subject</label>
+                    </div>
+                    <div class="col-75">
+                      <input type="text" id="subject" name="subject" placeholder="Subject...">
+                    </div>
+             
+               
+                <div class="row">
+                  
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="subject">Paragraph </label>
+                        </div>
+                        <div class="col-75">
+                            <textarea id="p1" name="p1" required placeholder="Paragraph 1.."
+                                style="height:150px"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="subject">Paragraph 2</label>
+                        </div>
+                        <div class="col-75">
+                            <textarea id="p2" name="p2" placeholder="Paragraph 2.."
+                                style="height:150px"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="subject">Paragraph 3</label>
+                        </div>
+                        <div class="col-75" >
+                            <textarea id="p3" name="p3" placeholder="Paragraph 3.."
+                                style="height:150px"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 5%;">
+                        <input type="submit" value="Send">
+                    </div>
+            </form>
+
+            <a href="https://swiftlinefx.web.app/admin/Mailer.html" class="bto">←Go Back</a>
+        </div>
+        <style>
+            .bto{
+                background-color: rgb(17, 114, 141);
+                border: 0px;
+                color: white;
+                width: 30%;
+                margin-top: 3%;
+                text-align: center;
+                padding-top: 1%;
+                padding-bottom: 1%;
+            }
+        </style>
+    </div>
+    <!--Container Main end-->
+
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+
+            .col-25,
+            .col-75,
+            input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
+
+
+    <style>
+        .upbt {
+            background-color: aqua;
+            align-self: center;
+            padding: 1%;
+            color: rgb(153, 138, 138);
+
+
+
+        }
+
+        @media only screen and (max-width: 767px) {
+            .upbt {
+                text-align: center;
+                padding: 3%;
+
+            }
+        }
+
+        .boodd {
+            background-color: rgba(49, 28, 0, 0.294);
+            width: 100%;
+            padding: 3%;
+            border-radius: 5px;
+        }
+
+        .imagediv {
+            padding: 2%;
+            background-color: #44230267;
+            border: 3px solid black;
+            border-radius: 5px;
+
+
+        }
+
+        @media only screen and (max-width: 767px) {
+            .imagediv {
+                border: 0px;
+            }
+        }
+
+        @media only screen and (max-width: 767px) {
+            .imagediv {
+                width: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                background-color: transparent;
+            }
+        }
+
+        .theimage {
+            width: 15%;
+            margin-left: 3%;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .theimage {
+                width: 50%;
+            }
+        }
+
+        .fomst {
+            display: flex;
+
+            flex-wrap: wrap;
+            font-family: 'Courier New', Courier, monospace;
+
+            width: 100%;
+
+        }
+
+        @media only screen and (max-width: 767px) {
+            .fomst {
+                margin-top: 5%;
+            }
+        }
+
+        .divf {
+            display: flex;
+            flex-direction: column;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .inn {
+            border: 3px solid rgba(0, 0, 0, 0.35);
+            padding: 3%;
+            width: 140%;
+
+        }
+
+
+
+        .onll {
+            background-color: rgba(114, 114, 114, 0.529);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+        }
+
+
+
+
+        @import url("css2?family=Nunito:wght@400;600;700&display=swap");
+
+        :root {
+            --header-height: 3rem;
+            --nav-width: 68px;
+            --first-color: #442302;
+            --first-color-light: #AFA5D9;
+            --white-color: #F7F6FB;
+            --body-font: 'Nunito', sans-serif;
+            --normal-font-size: 1rem;
+            --z-fixed: 100
+        }
+
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box
+        }
+
+        body {
+            position: relative;
+            margin: var(--header-height) 0 0 0;
+            padding: 0 1rem;
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            transition: .5s
+        }
+
+        a {
+            text-decoration: none
+        }
+
+        .header {
+            width: 100%;
+            height: var(--header-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            background-color: var(--white-color);
+            z-index: var(--z-fixed);
+            transition: .5s
+        }
+
+        .header_toggle {
+            color: var(--first-color);
+            font-size: 1.5rem;
+            cursor: pointer
+        }
+
+        .header_img {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden
+        }
+
+        .header_img img {
+            width: 40px
+        }
+
+        .l-navbar {
+            position: fixed;
+            top: 0;
+            left: -30%;
+            width: var(--nav-width);
+            height: 100vh;
+            background-color: var(--first-color);
+            padding: .5rem 1rem 0 0;
+            transition: .5s;
+            z-index: var(--z-fixed)
+        }
+
+        .nav {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden
+        }
+
+        .nav_logo,
+        .nav_link {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            align-items: center;
+            column-gap: 1rem;
+            padding: .5rem 0 .5rem 1.5rem
+        }
+
+        .nav_logo {
+            margin-bottom: 2rem
+        }
+
+        .nav_logo-icon {
+            font-size: 1.25rem;
+            color: var(--white-color)
+        }
+
+        .nav_logo-name {
+            color: var(--white-color);
+            font-weight: 700
+        }
+
+        .nav_link {
+            position: relative;
+            color: var(--first-color-light);
+            margin-bottom: 1.5rem;
+            transition: .3s
+        }
+
+        .nav_link:hover {
+            color: var(--white-color)
+        }
+
+        .nav_icon {
+            font-size: 1.25rem
+        }
+
+        .show {
+            left: 0
+        }
+
+        .body-pd {
+            padding-left: calc(var(--nav-width) + 1rem)
+        }
+
+        .active {
+            color: var(--white-color)
+        }
+
+        .active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 32px;
+            background-color: var(--white-color)
+        }
+
+        .height-100 {
+            height: 100vh
+        }
+
+        @media screen and (min-width: 768px) {
+            body {
+                margin: calc(var(--header-height) + 1rem) 0 0 0;
+                padding-left: calc(var(--nav-width) + 2rem)
+            }
+
+            .header {
+                height: calc(var(--header-height) + 1rem);
+                padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
+            }
+
+            .header_img {
+                width: 40px;
+                height: 40px
+            }
+
+            .header_img img {
+                width: 45px
+            }
+
+            .l-navbar {
+                left: 0;
+                padding: 1rem 1rem 0 0
+            }
+
+            .show {
+                width: calc(var(--nav-width) + 156px)
+            }
+
+            .body-pd {
+                padding-left: calc(var(--nav-width) + 188px)
+            }
+        }
+
+        .mgsize {
+            width: 15%;
+        }
+
+        @media screen and (max-width:992px) {
+            .mgsize {
+                width: 13%;
+
+            }
+        }
+
+
+        /* TABLE CSS */
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .butt {
+            /* background-color: transparent; */
+            width: 100%;
+            border: 0px;
+            color: green;
+        }
+    </style>
+
+
+</body>
+
+</html>
